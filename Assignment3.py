@@ -17,19 +17,33 @@ import webbrowser
 import time
 
 progterms = {
-    'function' : 'A block of code that only runs when it is called',
-    'for loop' : 'A for loop repeats a segment of code a certain amount of times',
-    'while loop' : 'A while loop will repeat a segment of code when the condition is true',
+    'function' : 'A block of code that only runs when it is called.',
+    'for loop' : 'A for loop repeats a segment of code a certain amount of times.',
+    'while loop' : 'A while loop will repeat a segment of code when the condition is true.',
     'list' : 'A list is a way to store multiple items under one variable',
-    'comment' : 'A comment in python is used to make notes or remarks in a block of code'
+    'comment' : 'A comment in python is used to make notes or remarks in a block of code',
+    'data type' : 'A data type is a set of values with rules for their operations, such as string or integer.',
+    'compiler' : 'A program that translates a programming language to a target language, must be used for the "C" language.',
+    'variable' : 'A variable is a storage location for different data, such as strings, integers, and floats.',
+    'iterator' : 'An iterator is an object that is used to navigate a container, like a list.',
+    'argument' : 'An argument, or a parameter is a variable used in a subroutine, like in the function add(x+y), the x and y are arguements.'
+
+
+
 }
 #enter all these
 progwebsite = {
     'function' : 'https://en.wikipedia.org/wiki/Function_(computer_programming)',
     'for loop' : 'https://en.wikipedia.org/wiki/For_loop',
-    'while loop' : 'A while loop will repeat a segment of code when the condition is true',
-    'list' : 'A list is a way to store multiple items under one variable',
-    'comment' : 'A comment in python is used to make notes or remarks in a block of code'
+    'while loop' : 'https://en.wikipedia.org/wiki/While_loop',
+    'list' : 'https://en.wikipedia.org/wiki/Linked_list',
+    'comment' : 'https://en.wikipedia.org/wiki/Comment_(computer_programming)',
+    'data type' : 'https://en.wikipedia.org/wiki/Data_type',
+    'compiler' : 'https://en.wikipedia.org/wiki/Compiler',
+    'variable' : 'https://en.wikipedia.org/wiki/Variable_(computer_science)',
+    'iterator' : 'https://en.wikipedia.org/wiki/Iterator',
+    'argument' : 'https://en.wikipedia.org/wiki/Parameter_(computer_programming)'
+
 }
 
 def countdown(x):
@@ -38,7 +52,7 @@ def countdown(x):
         x -= 1
         print(x)
         if x == 1:
-            webbrowser.open(progwebsite[userguess], new=1)
+            webbrowser.open(progwebsite[userguess], new=1 )
             break
 
 
@@ -54,10 +68,15 @@ while userguess != "0":
     if userguess in progterms:
         print(userguess.title() + ":")
         print("\t" + progterms[userguess])
-        time.sleep(2)
+        time.sleep(3)
         print("Opening Website in:")
         countdown(4) 
         #webbrowser.open(progwebsite[userguess], new=1)
 
     elif userguess not in progterms:
-        print("we dont have that try this instead")
+        print("Sorry we do not have that term in this Dictionary.")
+        print("Here are some suggestions to try instead:")
+        print("Argument, Comment, Compiler, Data Type, For Loop")
+        print("Function, Iterator, List,  Variable, While Loop")
+
+print("Thanks for using this programming terms Dictionary!!!")
