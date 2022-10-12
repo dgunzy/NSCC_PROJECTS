@@ -54,7 +54,8 @@ def countdown(x):
     while x > 0:
         time.sleep(1)
         x -= 1
-        print(x)
+        print(x, end="", flush=True)
+        print(" ", end="", flush=True)
         if x == 1:
             webbrowser.open(progwebsite[userguess], new=1 )
             break
@@ -78,7 +79,7 @@ while userguess != "0":
         print(userguess.title() + ":")
         print("\t" + progterms[userguess])
         time.sleep(3)
-        print("Opening Website in:")
+        print("Opening Website in: ", end="",flush=True)
         countdown(4) 
         
     #If the user's guess is not in the dictionary, this will print out some suggestions to try that will work.
