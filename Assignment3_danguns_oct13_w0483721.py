@@ -1,17 +1,17 @@
 #!/usr/bin/python3
 
-""" Author: Daniel Guns
- Date: Oct 13 2022
- Class: Prog 1700
- Dictionary Assignment"""
+#  Author: Daniel Guns
+#  Date: Oct 13 2022
+#  Class: Prog 1700
+#  Dictionary Assignment
 
 
 
-"""Think of a dictionary of at least 10 programming terms. Ask the user to input a term and show the definition as well as open the wikipedia article for the term IF THEY HIT YES.  If it is not known tell them and suggest some options to learn.  
-Use the defenitions as values.  Lookup sleep function to open website later.
-Print each word and its meaning seperately in a neat format.  Both the key and value need to have no quotes around them.  If it knows the term open a website - remember &!  If it doesnt know the term 
-suggest some options.  
-"""
+# Think of a dictionary of at least 10 programming terms. Ask the user to input a term and show the definition as well as open the wikipedia article for the term IF THEY HIT YES.  If it is not known tell them and suggest some options to learn.  
+# Use the defenitions as values.  Lookup sleep function to open website later.
+# Print each word and its meaning seperately in a neat format.  Both the key and value need to have no quotes around them.  If it knows the term open a website - remember &!  If it doesnt know the term 
+# suggest some options.  
+
 
 import webbrowser as wb #This imports the function to open a default webbrowser in python
 import time   #This imports the ability to count down time 
@@ -83,7 +83,7 @@ while userguess != "0":
                 break
     
     # If the user's guess is not in the dictionary, this will print out some suggestions to try that will work.
-    if  userguess not in i:
+    else:
         print("Sorry we do not have that term in this Dictionary.")
         print("Here are some suggestions to try instead:")
         print("")
