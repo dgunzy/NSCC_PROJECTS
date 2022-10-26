@@ -78,7 +78,7 @@ totaltries = 0
 items = list(terms_to_learn.items())
 random.shuffle(items)
 for key, value in items:
-    proceed = input("Press enter to seee a definition, 0 to quit:")
+    proceed = input("Press enter to see a definition, 0 to quit:")
     if proceed != '0':
         print(key + "\n")
         seeterm = input("Hit enter to see the definiton: ")
@@ -106,12 +106,4 @@ print("You scored " + str(int(score))+ '%')
 
 
 
-
-
-
-# def randomplay(dict):
-#     l = list(dict.keys())
-#     random.shuffle(1)
-#     for k in l:
-#         print(k,dict[k])
 
