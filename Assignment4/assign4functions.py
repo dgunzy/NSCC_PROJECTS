@@ -7,7 +7,7 @@ from sqlite3 import Error
 #  Date: Oct 26 2022
 #  Class: Prog 1700
 #  Database Assignment
-
+userinput = 0
 def create_connection(db_file):
     """create a database connection to the sqlite database
     specified by db_file 
@@ -23,6 +23,17 @@ def create_connection(db_file):
     
     return conn
 
+def close_connection():
+    """creating a connection to SQLite database"""
+    conn = None
+    try:
+        conn = sqlite3.connect(r"assignment4database.db")
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+            print("\nConnection closed sucessfully")
 
 def create_table(conn, create_table_sql):
     """create a table from the create_table_sql statement
@@ -116,7 +127,7 @@ def create_new_project():
         projdate1 = input("Enter the project start date(XXXX-XX-XX): ")
         projdate2 = input("Enter the project end date(XXXX-XX-XX): ")
         project = [projname, projdate1, projdate2]
-        project = tuple(project);
+        project = tuple(project)
         # project = input("enter name date + date\n").split()
         # project = tuple(project);
         project_id = create_project(conn, project)
@@ -125,10 +136,8 @@ def create_new_project():
 def create_new_task():
     database = r"assignment4database.db"
 
-    #create a database connection
-
     conn = create_connection(database)
-    select_all_projects(conn)
+    select_all_projects()
     with conn:
         
         tasknum3 = input("\nEnter project_id(int): ")
@@ -169,6 +178,7 @@ def delete_project(conn, id):
 
 
 def delete_a_task():
+    select_all_tasks()
     database = r"assignment4database.db"
 
     conn = create_connection(database)
@@ -178,22 +188,19 @@ def delete_a_task():
 
 
 def delete_a_project():
+    select_all_projects()
     database = r"assignment4database.db"
 
     conn = create_connection(database)
     projid = input("\nEnter the project number to delete: ")
     with conn:
-       delete_project(conn, int(projid))#;
+       delete_project(conn, int(projid))
 
 
 
-def select_all_tasks(conn):
-    """
-    Query all rows in the atasks table
-    :param conn: The connection object
-    :return:
-    """
-
+def select_all_tasks():
+    
+    conn = create_connection(r"assignment4database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM tasks")
 
@@ -203,14 +210,10 @@ def select_all_tasks(conn):
     for row in rows:
         print(row)
 
-
-def select_all_projects(conn):
-    """
-    Query all rows in the atasks table
-    :param conn: The connection object
-    :return:
-    """
-
+#### removing conn from this
+def select_all_projects():
+    ###this is the new line
+    conn = create_connection(r"assignment4database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM projects")
 
@@ -220,3 +223,91 @@ def select_all_projects(conn):
     for row in rows:
         
         print(row)
+
+def lookattheprojects():
+    try:
+        select_all_projects()###removed conn from this
+    except:
+        print("Error: you must have entered somthing wrong!")
+             
+
+def lookathetasks():
+    try:
+        select_all_tasks()###removed conn from this
+    except:
+        print("Error: you must have entered somthing wrong!") 
+
+def createtheproject():
+    
+    try:
+        create_new_project()
+    except:
+        print("Error: you must have entered somthing wrong!") 
+
+def createthetask():
+    try:
+        create_new_task()
+    except:
+        print("Error: you must have entered somthing wrong! \n Fields 1, 3, 4 need to be Ints!\n")  
+
+def deletetheproject():
+    try:
+        delete_a_project()
+    except:
+        print("Error: you must have entered somthing wrong!")  
+
+def deletethetask():
+    try:
+        delete_a_task()
+    except:
+        print("Error: you must have entered somthing wrong!")  
+
+def main():
+    conn = create_connection(r"assignment4database.db")
+    create_projects_table()
+    create_tasks_table()
+    listoffunctions = [select_all_projects, select_all_tasks, createtheproject, createthetask, delete_a_project, delete_a_task]
+    userinput = 0
+    print(            "Welcome to the Project Manager!\n")
+    
+
+    while userinput != 'q':
+        userinput = input("     Press 1 see all projects: \n     Press 2 see all tasks: \n     Press 3 to create a new project: \n     Press 4 to create a new task: \n     Press 5 to delete a project: \n     Press 6 to delete a task:\n     Press q to quit:" ).strip()
+        if userinput == 'q':
+            break
+        userinput = int(userinput)
+        userinput = userinput - 1
+        listoffunctions[userinput]()
+
+
+        # if userinput == '1':
+    #         try:
+    #             select_all_projects(conn)
+    #         except:
+    #             print("Error: you must have entered somthing wrong!")
+    #     if userinput == '2':
+    #         try:
+    #             select_all_tasks(conn)
+    #         except:
+    #             print("Error: you must have entered somthing wrong!")    
+    #     if userinput == '3':
+    #         try:
+    #             create_new_project()
+    #         except:
+    #             print("Error: you must have entered somthing wrong!")
+    #     if userinput == '4':
+    #         try:
+    #             create_new_task()
+    #         except:
+    #             print("Error: you must have entered somthing wrong! \n Fields 1, 3, 4 need to be Ints!\n")
+    #     if userinput == '5':
+    #         try:
+    #             delete_a_project()
+    #         except:
+    #             print("Error: you must have entered somthing wrong!")
+    #     if userinput == '6':
+    #         try:
+    #             delete_a_task()
+    #         except:
+    #             print("Error: you must have entered somthing wrong!")
+    close_connection()
