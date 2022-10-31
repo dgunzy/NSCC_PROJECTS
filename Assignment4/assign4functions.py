@@ -210,9 +210,8 @@ def select_all_tasks():
     for row in rows:
         print(row)
 
-#### removing conn from this
+
 def select_all_projects():
-    ###this is the new line
     conn = create_connection(r"assignment4database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM projects")
@@ -226,14 +225,14 @@ def select_all_projects():
 
 def lookattheprojects():
     try:
-        select_all_projects()###removed conn from this
+        select_all_projects()
     except:
         print("Error: you must have entered somthing wrong!")
              
 
 def lookathetasks():
     try:
-        select_all_tasks()###removed conn from this
+        select_all_tasks()
     except:
         print("Error: you must have entered somthing wrong!") 
 
@@ -279,35 +278,4 @@ def main():
         userinput = userinput - 1
         listoffunctions[userinput]()
 
-
-        # if userinput == '1':
-    #         try:
-    #             select_all_projects(conn)
-    #         except:
-    #             print("Error: you must have entered somthing wrong!")
-    #     if userinput == '2':
-    #         try:
-    #             select_all_tasks(conn)
-    #         except:
-    #             print("Error: you must have entered somthing wrong!")    
-    #     if userinput == '3':
-    #         try:
-    #             create_new_project()
-    #         except:
-    #             print("Error: you must have entered somthing wrong!")
-    #     if userinput == '4':
-    #         try:
-    #             create_new_task()
-    #         except:
-    #             print("Error: you must have entered somthing wrong! \n Fields 1, 3, 4 need to be Ints!\n")
-    #     if userinput == '5':
-    #         try:
-    #             delete_a_project()
-    #         except:
-    #             print("Error: you must have entered somthing wrong!")
-    #     if userinput == '6':
-    #         try:
-    #             delete_a_task()
-    #         except:
-    #             print("Error: you must have entered somthing wrong!")
     close_connection()
