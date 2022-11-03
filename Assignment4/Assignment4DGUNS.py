@@ -23,6 +23,7 @@ def main():
     while userinput != 'q':
         ###this will loop through the various inputs unless the user hits 'q'
         userinput = input("\n     Press 1 see all projects: \n     Press 2 see all tasks: \n     Press 3 to create a new project: \n     Press 4 to create a new task: \n     Press 5 to delete a project: \n     Press 6 to delete a task:\n     Press q to quit:\n\nEnter your input here: ").strip()
+        print("")
         ###all the descriptions for these functions can be found in assign4functions.py
         if userinput == '1':
             try:

@@ -83,8 +83,10 @@ def select_all_projects(conn):
     ###this takes the column values and prints them
     data = cur.execute("""SELECT * FROM projects""")
     for column in data.description:
-        print(column[0],  end=" - ")
+        print(column[0],  end="   ")
+  
     print("")
+
     for row in rows:
         
         print(row)
@@ -100,7 +102,7 @@ def select_all_tasks(conn):
     ### this takes the column values and prints them
     data = cur.execute("""SELECT * FROM tasks""")
     for column in data.description:
-        print(column[0],  end=" - ")
+        print(column[0],  end="   ")
     print("")
     for row in rows:
         print(row)
