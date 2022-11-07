@@ -64,6 +64,6 @@ def main():
     sq.close_connection()
     ###this makes sure the connection closes after the user is finished
 
-    print("\nThanks for using this Project Manager!")
+    print("\nThanks for using this Project Manager!\n")
 main()
 ###this calles the main logic of the program
