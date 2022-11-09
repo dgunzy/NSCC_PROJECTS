@@ -19,7 +19,6 @@ def main():
     userinput = 0
     print(            "Welcome to the Project Manager!")
     
-
     while userinput != 'q':
         ###this will loop through the various inputs unless the user hits 'q'
         userinput = input("\n     Press 1 see all projects: \n     Press 2 see all tasks: \n     Press 3 to create a new project: \n     Press 4 to create a new task: \n     Press 5 to delete a project: \n     Press 6 to delete a task:\n     Press q to quit:\n\nEnter your input here: ").strip()
@@ -29,39 +28,39 @@ def main():
             try:
                 sq.select_all_projects(conn)
             except:
-                print("\nError: you must have entered somthing wrong!")
+                print("\nError: you must have entered something wrong!")
         elif userinput == '2':     
             try:
                 sq.select_all_tasks(conn)
             except:
-                print("\nError: you must have entered somthing wrong!") 
+                print("\nError: you must have entered something wrong!") 
         elif userinput == '3':
             try:
                 sq.create_new_project(conn)
             except:
-                print("\nError: you must have entered somthing wrong!") 
+                print("\nError: you must have entered something wrong!") 
         elif userinput == '4':
             try:
                 sq.create_new_task(conn)
             except:
                 ### this is a specific error message as some of the fields need to be integers
-                print("\nError: you must have entered somthing wrong! \n Fields 1, 3, 4 need to be Integers!\n")  
+                print("\nError: you must have entered something wrong! \n Fields 1, 3, 4 need to be Integers!\n")  
         elif userinput == '5':
             try:
                 sq.delete_a_project(conn)
             except:
-                print("\nError: you must have entered somthing wrong!")  
+                print("\nError: you must have entered something wrong!")  
         elif userinput == '6':
             try:
                 sq.delete_a_task(conn)
             except:
-                print("\nError: you must have entered somthing wrong!")
+                print("\nError: you must have entered something wrong!")
         elif userinput == 'q':
             break
         else:
             print("\nThat is not a recognized Input")
 
-    sq.close_connection()
+    sq.close_connection(conn)
     ###this makes sure the connection closes after the user is finished
 
     print("\nThanks for using this Project Manager!\n")

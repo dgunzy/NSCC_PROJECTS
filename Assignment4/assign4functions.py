@@ -24,7 +24,6 @@ def create_connection(db_file):
     
     return conn
 
-
 def create_table(conn, create_table_sql):
     """create a table from the create_table_sql statement
     :param conn: Connection object
@@ -38,8 +37,6 @@ def create_table(conn, create_table_sql):
     except Error as e:
         print(e)
 
-
-
 def create_projects_table(conn):
     ### THis creates the projects table if it doesnt exist
 
@@ -48,8 +45,6 @@ def create_projects_table(conn):
                                          name text NOT NULL,                                        begin_date text,
                                          end_date text
                                         ); """
-    
-
     if conn is not None:
         create_table(conn, sql_create_projects_table)
     else:
@@ -67,8 +62,6 @@ def create_tasks_table(conn):
                                  end_date text NOT NULL,
                                  FOREIGN KEY (project_id) REFERENCES projects (id)
                              );"""
-    
-
     if conn is not None:
         create_table(conn, sql_create_tasks_table)
     else:
@@ -91,10 +84,9 @@ def select_all_projects(conn):
     for row in rows:
         print(row)
 
-
 def select_all_tasks(conn):
     ###this function selects the tasks and displayes them
-    
+
     cur = conn.cursor()
     cur.execute("SELECT * FROM tasks")
 
@@ -128,8 +120,6 @@ def create_new_project(conn):
         conn.commit()
         return cur.lastrowid
 
-
-
 def create_new_task(conn):
     
     select_all_projects(conn)
@@ -156,7 +146,6 @@ def create_new_task(conn):
 
         return cur.lastrowid
 
-
 def delete_a_project(conn):
     select_all_projects(conn)
     ###this function deletes a project from the list of projects
@@ -168,9 +157,6 @@ def delete_a_project(conn):
         cur = conn.cursor()
         cur.execute(sql, (projid,))
         conn.commit()
-
-
-
 
 def delete_a_task(conn):
     select_all_tasks(conn)
@@ -184,19 +170,14 @@ def delete_a_task(conn):
         cur.execute(sql, (taskid,))
         conn.commit()
 
-
- 
-def close_connection():
+def close_connection(conn):
     ###this function closes the connection to the database
-    conn = None
     try:
-        conn = sqlite3.connect(r"assignment4database.db")
-    except Error as e:
-        print(e)
-    finally:
         if conn:
             conn.close()
             print("\nConnection closed sucessfully")
+    except:
+        print("Error closing connection")
+
+        
   
-
-
