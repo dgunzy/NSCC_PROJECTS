@@ -17,7 +17,13 @@ itemvel = 4
 immunetimer = 60
 boosttimer = 0
 run = True
-
+WIDTH = 1200
+HEIGHT = 600
+FPS = 60
+VEL = 5
+SCREEN = py.display.set_mode((WIDTH, HEIGHT))
+py.display.set_caption("Charlie's Adventure")
+BG = py.image.load(os.path.join('assets',"background.png")).convert()
 
 def control_object(itemvel, timestart, objectposition, object):
     if gameclock >= timestart:
@@ -34,3 +40,7 @@ def gameover():
     with open("scores.txt", "a") as f:
                 f.write("The score by player is " + str(gameclock//60))
     py.time.delay(5000)
+
+def draw_gamewindow():
+    SCREEN.blit(BG, (0,0))
+    py.display.update()
