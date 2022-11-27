@@ -2,7 +2,7 @@
 import pygame as py
 import os as os
 import datetime
-import math
+import random
 import functions as f
 
 py.font.init()
@@ -27,79 +27,15 @@ CHARLIE_BOOST = py.USEREVENT + 2
 FEAR_FONT = py.font.SysFont('comicsans', 40)
 END_FONT = py.font.SysFont('comicsans', 100)
 SCORE_FONT = py.font.SysFont('comicsans', 60)
-WHITE = (0, 0, 0)
+WHITE = (255, 255, 255)
+PURPLE = (62, 12, 94)
+scroll = 0
 PURPLE = (62, 12, 94)
 scroll = 0
 
 
 
-def draw_background(playerposition):
-    global scroll
-    for i in range(0,2):
 
-        if playerposition.x > 350:
-            SCREEN.blit(BG, (i * WIDTH + scroll,0))
-            
-            scroll -= 3
-            
-            if abs(scroll) > WIDTH:
-                scroll = 0
-                
-            
-        if playerposition.x <= 350:
-            SCREEN.blit(BG, (i * WIDTH + scroll,0))
-           
-    
-def draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear):
-    SCREEN.blit(CONE, (coneposition.x, coneposition.y))
-    SCREEN.blit(BLENDER, (blenderposition.x, blenderposition.y))
-    SCREEN.blit(BALL, (ballposition.x ,ballposition.y))
-    SCREEN.blit(PIG, (pigposition.x, pigposition.y))
-    charlie_fear_text = FEAR_FONT.render("Charlie's Fear level: " + str(charlie_fear) + "                 She gets Scared at 5!", 1, PURPLE )
-    SCREEN.blit(charlie_fear_text, (10, 10))
-    SCREEN.blit(PLAYER, (playerposition.x, playerposition.y))
-    
-
-def player_movement(keys_pressed, playerposition):
-    if keys_pressed[py.K_LEFT] and playerposition.x > 0: 
-        playerposition.x -= VEL
-    if keys_pressed[py.K_RIGHT] and playerposition.x < 1100: 
-            playerposition.x += VEL + 1
-
-
-def object_movement(timestart, gameclock, objectposition, itemvel):
-    if gameclock > timestart:
-        objectposition.x -= itemvel
-        if objectposition.x < -500:
-            objectposition.x = 1400
-            return objectposition
-        return objectposition
-
-def collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer):
-    if playerposition.colliderect(coneposition) and immunetimer < 0:
-        py.event.post(py.event.Event(CHARLIE_HIT))
-        
-        
-    if playerposition.colliderect(blenderposition) and immunetimer < 0:
-        py.event.post(py.event.Event(CHARLIE_HIT))
-        
-    if playerposition.colliderect(pigposition) and immunetimer < 0:
-        py.event.post(py.event.Event(CHARLIE_HIT))
-       
-    if playerposition.colliderect(ballposition) and boosttimer < 0:
-        py.event.post(py.event.Event(CHARLIE_BOOST))
-def gameover(gameclock):
-    game_over_text = END_FONT.render("GAME OVER", 1, WHITE)
-    score_text = SCORE_FONT.render("You scored " + str(gameclock//60), 1, WHITE)
-    SCREEN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2))
-    SCREEN.blit(score_text, (WIDTH/2 - score_text.get_width()/2, 400))
-    py.display.update()
-    time = datetime.datetime.now()
-    with open("scores.txt", "a") as f:
-                f.write("\nThe score by player is " + str(gameclock//60) + str(time))
-    py.time.delay(5000)
-           
-    
 def main():
     playerposition = py.Rect(200, 450, 100, 90)
     coneposition = py.Rect(1300, 450, 150, 75)
@@ -110,19 +46,20 @@ def main():
     immunetimer = 0
     boosttimer = 0
     gameclock = 0
-    scroll = 0
+    
     charlie_fear = 0
     jumpcount = 13
     itemvel = 0
     jump = False
     run= True
+    f.openingscreen()
     
     while run:
         clock.tick(FPS)
         gameclock += 1
         immunetimer -= 1
         boosttimer -= 1
-        itemvel = int(gameclock / 400) + 6
+        itemvel = int(gameclock / 300) + 6
         for event in py.event.get():
             if event.type == py.QUIT:
                 run = False
@@ -134,7 +71,7 @@ def main():
                 boosttimer = 60
                 ballposition.x = 2000
         keys_pressed = py.key.get_pressed()
-        player_movement(keys_pressed, playerposition)
+        f.player_movement(keys_pressed, playerposition)
         if not(jump):    
             if keys_pressed[py.K_SPACE]:
                 jump = True
@@ -148,17 +85,17 @@ def main():
                     jumpcount = 13
                     jump = False
                     playerposition.y = 450
-        object_movement(200, gameclock, coneposition, itemvel)
-        object_movement(350, gameclock, blenderposition, itemvel)
-        object_movement(450, gameclock, ballposition, itemvel)
-        object_movement(600, gameclock, pigposition, itemvel)
+        f.object_movement(200, gameclock, coneposition, itemvel)
+        f.object_movement(350, gameclock, blenderposition, itemvel)
+        f.object_movement(450, gameclock, ballposition, itemvel)
+        f.object_movement(1111, gameclock, pigposition, itemvel)
    
-        collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer)
+        f.collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer)
         if charlie_fear == 5:
-            gameover(gameclock)
+            f.gameover(gameclock)
             run = False
-        draw_background(playerposition)        
-        draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear)
+        f.draw_background(playerposition)        
+        f.draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear)
         py.display.update()
     if run == False:
             py.quit()
