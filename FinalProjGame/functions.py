@@ -9,7 +9,7 @@ clock = py.time.Clock()
 WIDTH = 1200
 HEIGHT = 600
 FPS = 60
-VEL = 5
+VEL = 6
 SCREEN = py.display.set_mode((WIDTH, HEIGHT))
 py.display.set_caption("Charlie's Adventure")
 BG = py.image.load(os.path.join('assets',"background.png")).convert()
@@ -23,6 +23,7 @@ CHARLIE_HIT = py.USEREVENT + 1
 CHARLIE_BOOST = py.USEREVENT + 2
 
 FEAR_FONT = py.font.SysFont('comicsans', 40)
+INSTRUCTION_FONT = py.font.SysFont('comicsans', 30)
 END_FONT = py.font.SysFont('comicsans', 100)
 SCORE_FONT = py.font.SysFont('comicsans', 60)
 WHITE = (255, 255, 255)
@@ -71,7 +72,7 @@ def object_movement(timestart, gameclock, objectposition, itemvel):
     if gameclock > timestart:
         objectposition.x -= itemvel
         if objectposition.x < -500:
-            objectposition.x = random.randint(1300, 1700)
+            objectposition.x = random.randint(1300, 2400)
             return objectposition
         return objectposition
 
@@ -103,10 +104,10 @@ def openingscreen():
     clock = py.time.Clock()
     startscreen = py.Rect(0,0,WIDTH, HEIGHT)
     start_text = END_FONT.render("Charlie's Adventure", 1, WHITE)
-    instructions1 = SCORE_FONT.render("Welcome to Charlie's Adventure.", 1, WHITE)
-    instructions2 = SCORE_FONT.render("Press space to jump, left and right arrow to move.", 1, WHITE)
-    instructions3 = SCORE_FONT.render("Avoid getting Scared, collect tennis balls to relax.", 1, WHITE)
-    begin_text = SCORE_FONT.render("Press Space to start!!!", 1, WHITE)
+    instructions1 = INSTRUCTION_FONT.render("Welcome to Charlie's Adventure.", 1, WHITE)
+    instructions2 = INSTRUCTION_FONT.render("Press space to jump, left and right arrow to move.", 1, WHITE)
+    instructions3 = INSTRUCTION_FONT.render("Avoid getting Scared, collect tennis balls to relax.", 1, WHITE)
+    begin_text = INSTRUCTION_FONT.render("Press Space to start!!!", 1, WHITE)
     run = True 
     while run:
         clock.tick(30)

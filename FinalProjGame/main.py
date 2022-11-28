@@ -11,7 +11,7 @@ clock = py.time.Clock()
 WIDTH = 1200
 HEIGHT = 600
 FPS = 60
-VEL = 5
+VEL = 6
 SCREEN = py.display.set_mode((WIDTH, HEIGHT))
 py.display.set_caption("Charlie's Adventure")
 BG = py.image.load(os.path.join('assets',"background.png")).convert()
@@ -23,7 +23,7 @@ BALL = py.image.load(os.path.join('assets','ball.png'))
 
 CHARLIE_HIT = py.USEREVENT + 1
 CHARLIE_BOOST = py.USEREVENT + 2
-
+INSTRUCTION_FONT = py.font.SysFont('comicsans', 30)
 FEAR_FONT = py.font.SysFont('comicsans', 40)
 END_FONT = py.font.SysFont('comicsans', 100)
 SCORE_FONT = py.font.SysFont('comicsans', 60)
