@@ -2,7 +2,7 @@
 import pygame as py
 import os as os
 import functions as f
-import random
+
 
 py.font.init()
 clock = py.time.Clock()
@@ -67,7 +67,6 @@ def main():
             if event.type == CHARLIE_BOOST and charlie_fear > 0:
                 charlie_fear -= 1
                 boosttimer = 60
-                ballposition.x = random.randint(3500, 5000)
         keys_pressed = py.key.get_pressed()
         f.player_movement(keys_pressed, playerposition, VEL)
         if not(jump):    
@@ -83,10 +82,10 @@ def main():
                     jumpcount = 13
                     jump = False
                     playerposition.y = 450
-        f.object_movement(200, gameclock, coneposition, itemvel)
-        f.object_movement(350, gameclock, blenderposition, itemvel)
-        f.object_movement(450, gameclock, ballposition, itemvel)
-        f.object_movement(1111, gameclock, pigposition, itemvel)
+        f.object_movement(200, gameclock, coneposition, itemvel, 1200, 2200)
+        f.object_movement(350, gameclock, blenderposition, itemvel, 1400, 3000)
+        f.object_movement(450, gameclock, ballposition, itemvel, 3000,5000)
+        f.object_movement(1111, gameclock, pigposition, itemvel, 2000, 5000)
    
         f.collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer, CHARLIE_HIT, CHARLIE_BOOST)
         if charlie_fear == 5:

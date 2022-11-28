@@ -67,11 +67,11 @@ def player_movement(keys_pressed, playerposition, VEL):
             playerposition.x += VEL + 1
 
 
-def object_movement(timestart, gameclock, objectposition, itemvel):
+def object_movement(timestart, gameclock, objectposition, itemvel, randomint1, randomint2):
     if gameclock > timestart:
         objectposition.x -= itemvel
         if objectposition.x < -500:
-            objectposition.x = random.randint(1300, 2400)
+            objectposition.x = random.randint(randomint1, randomint2)
             return objectposition
         return objectposition
 
