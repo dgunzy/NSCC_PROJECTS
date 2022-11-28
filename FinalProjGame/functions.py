@@ -118,7 +118,7 @@ def openingscreen():
         if keys_pressed[py.K_SPACE]:
             run = False
         py.draw.rect(SCREEN, PURPLE, startscreen)           
-        SCREEN.blit(start_text, (WIDTH/2 - start_text.get_width()/2, 100))
+        SCREEN.blit(start_text, (WIDTH/2 - start_text.get_width()/2, 50))
         SCREEN.blit(instructions1, (WIDTH/2 - instructions1.get_width()/2, 200))
         SCREEN.blit(instructions2, (WIDTH/2 - instructions2.get_width()/2, 250))
         SCREEN.blit(instructions3, (WIDTH/2 - instructions3.get_width()/2, 300))
