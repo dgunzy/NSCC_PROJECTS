@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 import pygame as py
 import os as os
-import datetime
-import random
 import functions as f
+import random
 
 py.font.init()
 clock = py.time.Clock()
@@ -29,9 +28,8 @@ END_FONT = py.font.SysFont('comicsans', 100)
 SCORE_FONT = py.font.SysFont('comicsans', 60)
 WHITE = (255, 255, 255)
 PURPLE = (62, 12, 94)
-scroll = 0
 PURPLE = (62, 12, 94)
-scroll = 0
+
 
 
 
@@ -46,13 +44,13 @@ def main():
     immunetimer = 0
     boosttimer = 0
     gameclock = 0
-    
+    scroll = 0
     charlie_fear = 0
     jumpcount = 13
     itemvel = 0
     jump = False
     run= True
-    f.openingscreen()
+    f.openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE)
     
     while run:
         clock.tick(FPS)
@@ -69,9 +67,9 @@ def main():
             if event.type == CHARLIE_BOOST and charlie_fear > 0:
                 charlie_fear -= 1
                 boosttimer = 60
-                ballposition.x = 2000
+                ballposition.x = random.randint(3500, 5000)
         keys_pressed = py.key.get_pressed()
-        f.player_movement(keys_pressed, playerposition)
+        f.player_movement(keys_pressed, playerposition, VEL)
         if not(jump):    
             if keys_pressed[py.K_SPACE]:
                 jump = True
@@ -90,12 +88,12 @@ def main():
         f.object_movement(450, gameclock, ballposition, itemvel)
         f.object_movement(1111, gameclock, pigposition, itemvel)
    
-        f.collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer)
+        f.collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer, CHARLIE_HIT, CHARLIE_BOOST)
         if charlie_fear == 5:
-            f.gameover(gameclock)
-            run = False
-        f.draw_background(playerposition)        
-        f.draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear)
+            f.gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT)
+            main()
+        scroll = f.draw_background(playerposition, SCREEN, WIDTH, BG, scroll)        
+        f.draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear, SCREEN, CONE, BLENDER,BALL,PIG,FEAR_FONT, PLAYER,PURPLE)
         py.display.update()
     if run == False:
             py.quit()

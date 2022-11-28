@@ -4,38 +4,37 @@ import datetime
 import random
 
 py.font.init()
-clock = py.time.Clock()
+# clock = py.time.Clock()
 
-WIDTH = 1200
-HEIGHT = 600
-FPS = 60
-VEL = 6
-SCREEN = py.display.set_mode((WIDTH, HEIGHT))
-py.display.set_caption("Charlie's Adventure")
-BG = py.image.load(os.path.join('assets',"background.png")).convert()
-PLAYER = py.image.load(os.path.join('assets', 'dog.png'))
-PIG = py.image.load(os.path.join('assets','pig.png'))
-CONE = py.image.load(os.path.join('assets','cone.png'))
-BLENDER = py.image.load(os.path.join('assets','blender.png'))
-BALL = py.image.load(os.path.join('assets','ball.png'))
+# WIDTH = 1200
+# HEIGHT = 600
+# FPS = 60
+# VEL = 6
+# SCREEN = py.display.set_mode((WIDTH, HEIGHT))
+# py.display.set_caption("Charlie's Adventure")
+# BG = py.image.load(os.path.join('assets',"background.png")).convert()
+# PLAYER = py.image.load(os.path.join('assets', 'dog.png'))
+# PIG = py.image.load(os.path.join('assets','pig.png'))
+# CONE = py.image.load(os.path.join('assets','cone.png'))
+# BLENDER = py.image.load(os.path.join('assets','blender.png'))
+# BALL = py.image.load(os.path.join('assets','ball.png'))
 
-CHARLIE_HIT = py.USEREVENT + 1
-CHARLIE_BOOST = py.USEREVENT + 2
+# CHARLIE_HIT = py.USEREVENT + 1
+# CHARLIE_BOOST = py.USEREVENT + 2
 
-FEAR_FONT = py.font.SysFont('comicsans', 40)
-INSTRUCTION_FONT = py.font.SysFont('comicsans', 30)
-END_FONT = py.font.SysFont('comicsans', 100)
-SCORE_FONT = py.font.SysFont('comicsans', 60)
-WHITE = (255, 255, 255)
-PURPLE = (62, 12, 94)
-scroll = 0
-PURPLE = (62, 12, 94)
-
-
+# FEAR_FONT = py.font.SysFont('comicsans', 40)
+# INSTRUCTION_FONT = py.font.SysFont('comicsans', 30)
+# END_FONT = py.font.SysFont('comicsans', 100)
+# SCORE_FONT = py.font.SysFont('comicsans', 60)
+# WHITE = (255, 255, 255)
+# PURPLE = (62, 12, 94)
+# scroll = 0
+# PURPLE = (62, 12, 94)
 
 
-def draw_background(playerposition):
-    global scroll
+
+
+def draw_background(playerposition, SCREEN, WIDTH, BG,scroll):
     for i in range(0,2):
 
         if playerposition.x > 350:
@@ -49,9 +48,9 @@ def draw_background(playerposition):
             
         if playerposition.x <= 350:
             SCREEN.blit(BG, (i * WIDTH + scroll,0))
-           
+    return scroll       
     
-def draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear):
+def draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear, SCREEN, CONE, BLENDER,BALL,PIG,FEAR_FONT, PLAYER,PURPLE):
     SCREEN.blit(CONE, (coneposition.x, coneposition.y))
     SCREEN.blit(BLENDER, (blenderposition.x, blenderposition.y))
     SCREEN.blit(BALL, (ballposition.x ,ballposition.y))
@@ -61,7 +60,7 @@ def draw_gamewindow(playerposition, coneposition, blenderposition, ballposition,
     SCREEN.blit(PLAYER, (playerposition.x, playerposition.y))
     
 
-def player_movement(keys_pressed, playerposition):
+def player_movement(keys_pressed, playerposition, VEL):
     if keys_pressed[py.K_LEFT] and playerposition.x > 0: 
         playerposition.x -= VEL
     if keys_pressed[py.K_RIGHT] and playerposition.x < 1100: 
@@ -76,7 +75,7 @@ def object_movement(timestart, gameclock, objectposition, itemvel):
             return objectposition
         return objectposition
 
-def collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer):
+def collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer, CHARLIE_HIT, CHARLIE_BOOST):
     if playerposition.colliderect(coneposition) and immunetimer < 0:
         py.event.post(py.event.Event(CHARLIE_HIT))
         
@@ -89,7 +88,7 @@ def collision(playerposition, coneposition, blenderposition, pigposition, ballpo
        
     if playerposition.colliderect(ballposition) and boosttimer < 0:
         py.event.post(py.event.Event(CHARLIE_BOOST))
-def gameover(gameclock):
+def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
     game_over_text = END_FONT.render("GAME OVER", 1, WHITE)
     score_text = SCORE_FONT.render("You scored " + str(gameclock//60), 1, WHITE)
     SCREEN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2))
@@ -100,7 +99,7 @@ def gameover(gameclock):
                 f.write("\nThe score by player is " + str(gameclock//60) + str(time))
     py.time.delay(5000)
     
-def openingscreen():
+def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE):
     clock = py.time.Clock()
     startscreen = py.Rect(0,0,WIDTH, HEIGHT)
     start_text = END_FONT.render("Charlie's Adventure", 1, WHITE)
@@ -114,6 +113,8 @@ def openingscreen():
         for event in py.event.get():
             if event.type == py.QUIT:
                 py.quit()
+                return
+            
         keys_pressed = py.key.get_pressed()
         if keys_pressed[py.K_SPACE]:
             run = False
