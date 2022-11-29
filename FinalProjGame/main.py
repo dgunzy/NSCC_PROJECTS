@@ -2,6 +2,7 @@
 import pygame as py
 import os as os
 import functions as f
+import random
 
 
 py.font.init()
@@ -61,12 +62,14 @@ def main():
         for event in py.event.get():
             if event.type == py.QUIT:
                 run = False
-            if event.type == CHARLIE_HIT:
+                return
+            elif event.type == CHARLIE_HIT:
                 charlie_fear += 1
                 immunetimer = 60
-            if event.type == CHARLIE_BOOST and charlie_fear > 0:
+            elif event.type == CHARLIE_BOOST and charlie_fear > 0:
                 charlie_fear -= 1
                 boosttimer = 60
+                ballposition.x = random.randint(3500, 5000)
         keys_pressed = py.key.get_pressed()
         f.player_movement(keys_pressed, playerposition, VEL)
         if not(jump):    
@@ -88,12 +91,16 @@ def main():
         f.object_movement(1111, gameclock, pigposition, itemvel, 2000, 5000)
    
         f.collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer, CHARLIE_HIT, CHARLIE_BOOST)
-        if charlie_fear == 5:
-            f.gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT)
-            main()
+        
         scroll = f.draw_background(playerposition, SCREEN, WIDTH, BG, scroll)        
         f.draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear, SCREEN, CONE, BLENDER,BALL,PIG,FEAR_FONT, PLAYER,PURPLE)
         py.display.update()
+        if charlie_fear == 5:
+            try:
+                f.gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT)
+                main()
+            except:
+                py.quit()
     if run == False:
             py.quit()
 

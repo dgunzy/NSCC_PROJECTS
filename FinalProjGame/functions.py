@@ -4,32 +4,6 @@ import datetime
 import random
 
 py.font.init()
-# clock = py.time.Clock()
-
-# WIDTH = 1200
-# HEIGHT = 600
-# FPS = 60
-# VEL = 6
-# SCREEN = py.display.set_mode((WIDTH, HEIGHT))
-# py.display.set_caption("Charlie's Adventure")
-# BG = py.image.load(os.path.join('assets',"background.png")).convert()
-# PLAYER = py.image.load(os.path.join('assets', 'dog.png'))
-# PIG = py.image.load(os.path.join('assets','pig.png'))
-# CONE = py.image.load(os.path.join('assets','cone.png'))
-# BLENDER = py.image.load(os.path.join('assets','blender.png'))
-# BALL = py.image.load(os.path.join('assets','ball.png'))
-
-# CHARLIE_HIT = py.USEREVENT + 1
-# CHARLIE_BOOST = py.USEREVENT + 2
-
-# FEAR_FONT = py.font.SysFont('comicsans', 40)
-# INSTRUCTION_FONT = py.font.SysFont('comicsans', 30)
-# END_FONT = py.font.SysFont('comicsans', 100)
-# SCORE_FONT = py.font.SysFont('comicsans', 60)
-# WHITE = (255, 255, 255)
-# PURPLE = (62, 12, 94)
-# scroll = 0
-# PURPLE = (62, 12, 94)
 
 
 
@@ -88,6 +62,7 @@ def collision(playerposition, coneposition, blenderposition, pigposition, ballpo
        
     if playerposition.colliderect(ballposition) and boosttimer < 0:
         py.event.post(py.event.Event(CHARLIE_BOOST))
+      
 def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
     game_over_text = END_FONT.render("GAME OVER", 1, WHITE)
     score_text = SCORE_FONT.render("You scored " + str(gameclock//60), 1, WHITE)
@@ -98,6 +73,10 @@ def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
     with open("scores.txt", "a") as f:
                 f.write("\nThe score by player is " + str(gameclock//60) + str(time))
     py.time.delay(5000)
+
+
+        
+        
     
 def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE):
     clock = py.time.Clock()
