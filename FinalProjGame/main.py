@@ -4,6 +4,7 @@ import os as os
 import functions as f
 import random
 
+###ball not dissapearing
 
 py.font.init()
 clock = py.time.Clock()
