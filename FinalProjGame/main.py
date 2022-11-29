@@ -16,7 +16,7 @@ VEL = 6
 SCREEN = py.display.set_mode((WIDTH, HEIGHT))
 py.display.set_caption("Charlie's Adventure")
 BG = py.image.load(os.path.join('assets',"background.png")).convert()
-PLAYER = py.image.load(os.path.join('assets', 'dog.png'))
+PLAYER = py.image.load(os.path.join('assets', 'charlie.png'))
 PIG = py.image.load(os.path.join('assets','pig.png'))
 CONE = py.image.load(os.path.join('assets','cone.png'))
 BLENDER = py.image.load(os.path.join('assets','blender.png'))
@@ -37,7 +37,7 @@ PURPLE = (62, 12, 94)
 
 
 def main():
-    playerposition = py.Rect(200, 450, 100, 90)
+    playerposition = py.Rect(200, 380, 100, 90)
     coneposition = py.Rect(1300, 450, 150, 75)
     blenderposition = py.Rect(1500, 420, 150, 75)
     ballposition = py.Rect(1400,200, 60,60)
@@ -85,7 +85,7 @@ def main():
             else:
                     jumpcount = 13
                     jump = False
-                    playerposition.y = 450
+                    playerposition.y = 380
         f.object_movement(200, gameclock, coneposition, itemvel, 1200, 2200)
         f.object_movement(350, gameclock, blenderposition, itemvel, 1400, 3000)
         f.object_movement(450, gameclock, ballposition, itemvel, 3000,5000)
