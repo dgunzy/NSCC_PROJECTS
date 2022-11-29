@@ -71,7 +71,7 @@ def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
     py.display.update()
     time = datetime.datetime.now()
     with open("scores.txt", "a") as f:
-                f.write("\nThe score by player is " + str(gameclock//60) + str(time))
+                f.write("\nThe score by player is " + str(gameclock//60) + " at " + str(time))
     py.time.delay(5000)
 
 
