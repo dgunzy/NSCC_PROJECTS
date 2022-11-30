@@ -4,7 +4,6 @@ import os as os
 import functions as f
 import random
 
-###ball not dissapearing
 
 py.font.init()
 clock = py.time.Clock()
@@ -52,7 +51,7 @@ def main():
     itemvel = 0
     jump = False
     run= True
-    f.openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE)
+    f.openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE, run)
     
     while run:
         clock.tick(FPS)
@@ -97,11 +96,10 @@ def main():
         f.draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear, SCREEN, CONE, BLENDER,BALL,PIG,FEAR_FONT, PLAYER,PURPLE)
         py.display.update()
         if charlie_fear == 5:
-            try:
-                f.gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT)
-                main()
-            except:
-                py.quit()
+            
+            f.gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT)
+            main()
+            
     if run == False:
             py.quit()
 

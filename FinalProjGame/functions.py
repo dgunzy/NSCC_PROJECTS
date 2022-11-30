@@ -66,19 +66,29 @@ def collision(playerposition, coneposition, blenderposition, pigposition, ballpo
 def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
     game_over_text = END_FONT.render("GAME OVER", 1, WHITE)
     score_text = SCORE_FONT.render("You scored " + str(gameclock//60), 1, WHITE)
-    SCREEN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2))
-    SCREEN.blit(score_text, (WIDTH/2 - score_text.get_width()/2, 400))
-    py.display.update()
+    return_text = SCORE_FONT.render("Press Space to return try again!!", 1, WHITE)
+    clock = py.time.Clock()
     time = datetime.datetime.now()
+    run = True
     with open("scores.txt", "a") as f:
                 f.write("\nThe score by player is " + str(gameclock//60) + " at " + str(time))
-    py.time.delay(5000)
+    while run:
+        clock.tick(30)
 
-
-        
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                py.quit()
+                exit()
+        keys_pressed = py.key.get_pressed()
+        if keys_pressed[py.K_SPACE]:
+            run = False
+        SCREEN.blit(game_over_text, (WIDTH/2 - game_over_text.get_width()/2, HEIGHT/2 - game_over_text.get_height()/2))
+        SCREEN.blit(score_text, (WIDTH/2 - score_text.get_width()/2, 400))
+        SCREEN.blit(return_text, (WIDTH/2 - return_text.get_width()/2, 500))
+        py.display.update()
         
     
-def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE):
+def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE, run):
     clock = py.time.Clock()
     startscreen = py.Rect(0,0,WIDTH, HEIGHT)
     start_text = END_FONT.render("Charlie's Adventure", 1, WHITE)
@@ -86,14 +96,17 @@ def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURP
     instructions2 = INSTRUCTION_FONT.render("Press space to jump, left and right arrow to move.", 1, WHITE)
     instructions3 = INSTRUCTION_FONT.render("Avoid getting Scared, collect tennis balls to relax.", 1, WHITE)
     begin_text = INSTRUCTION_FONT.render("Press Space to start!!!", 1, WHITE)
-    run = True 
+    
+    
     while run:
         clock.tick(30)
+
         for event in py.event.get():
             if event.type == py.QUIT:
+                
                 py.quit()
-                return
-            
+                exit()
+                 
         keys_pressed = py.key.get_pressed()
         if keys_pressed[py.K_SPACE]:
             run = False
@@ -104,4 +117,6 @@ def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURP
         SCREEN.blit(instructions3, (WIDTH/2 - instructions3.get_width()/2, 300))
         SCREEN.blit(begin_text, (WIDTH/2 - begin_text.get_width()/2, 400))
         py.display.update()
+    
+        
 
