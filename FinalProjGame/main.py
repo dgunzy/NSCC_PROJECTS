@@ -7,7 +7,7 @@ import random
 
 py.font.init()
 clock = py.time.Clock()
-
+###These are the variables that set the image and screen sizes, game speed, and title###
 WIDTH = 1200
 HEIGHT = 600
 FPS = 60
@@ -34,7 +34,8 @@ PURPLE = (62, 12, 94)
 
 
 
-
+### This is the main function that runs the program, The variables inside the main function will be modified###
+### And therefore need to be assigned in the function###
 def main():
     playerposition = py.Rect(200, 380, 100, 90)
     coneposition = py.Rect(1300, 450, 150, 75)
@@ -52,14 +53,14 @@ def main():
     jump = False
     run= True
     f.openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE, run)
-    
+    """THe main function runs and calls the necessary game functions in the correct order """
     while run:
         clock.tick(FPS)
         gameclock += 1
         immunetimer -= 1
         boosttimer -= 1
-        itemvel = int(gameclock / 300) + 6
-        for event in py.event.get():
+        itemvel = int(gameclock / 300) + 6 #This increases the speed as the game time progresses
+        for event in py.event.get(): #This loop handles game events, such as quitting the game or the charlie hit or boost 
             if event.type == py.QUIT:
                 run = False
                 return
@@ -72,7 +73,7 @@ def main():
                 ballposition.x = random.randint(3500, 5000)
         keys_pressed = py.key.get_pressed()
         f.player_movement(keys_pressed, playerposition, VEL)
-        if not(jump):    
+        if not(jump):   #This handles the jump when the player hits the spacebar 
             if keys_pressed[py.K_SPACE]:
                 jump = True
 
@@ -92,15 +93,16 @@ def main():
    
         f.collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer, CHARLIE_HIT, CHARLIE_BOOST)
         
-        scroll = f.draw_background(playerposition, SCREEN, WIDTH, BG, scroll)        
+        scroll = f.draw_background(playerposition, SCREEN, WIDTH, BG, scroll) #this reassigns the scroll variable the correct return from the background scrolling function        
         f.draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear, SCREEN, CONE, BLENDER,BALL,PIG,FEAR_FONT, PLAYER,PURPLE)
         py.display.update()
-        if charlie_fear == 5:
+        if charlie_fear == 5:  #This ends the game when the fear is 5
             
             f.gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT)
             main()
             
-    if run == False:
+    if run == False:  #when the exit is pressed, the run is false and py.quit() is called
             py.quit()
 
-main()
+if __name__ == "__main__":
+    main()
