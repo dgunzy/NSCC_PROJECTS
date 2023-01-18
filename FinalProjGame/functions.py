@@ -9,22 +9,19 @@ py.font.init()
 
 
 def draw_background(playerposition, SCREEN, WIDTH, BG,scroll):
+    """This function handles the scrolling by iterating through a range and blitting the background in sequence"""
     for i in range(0,2):
-
         if playerposition.x > 350:
             SCREEN.blit(BG, (i * WIDTH + scroll,0))
-            
-            scroll -= 3
-            
+            scroll -= 3 #This controls the speed of the background
             if abs(scroll) > WIDTH:
                 scroll = 0
-                
-            
         if playerposition.x <= 350:
             SCREEN.blit(BG, (i * WIDTH + scroll,0))
-    return scroll       
+    return scroll    #scroll must be returned and assigned again in the main function    
     
 def draw_gamewindow(playerposition, coneposition, blenderposition, ballposition, pigposition, charlie_fear, SCREEN, CONE, BLENDER,BALL,PIG,FEAR_FONT, PLAYER,PURPLE):
+    """This function draws all the objects and text that is displayed during the game."""
     SCREEN.blit(CONE, (coneposition.x, coneposition.y))
     SCREEN.blit(BLENDER, (blenderposition.x, blenderposition.y))
     SCREEN.blit(BALL, (ballposition.x ,ballposition.y))
@@ -35,6 +32,7 @@ def draw_gamewindow(playerposition, coneposition, blenderposition, ballposition,
     
 
 def player_movement(keys_pressed, playerposition, VEL):
+    """This handles the left and right movement of the player"""
     if keys_pressed[py.K_LEFT] and playerposition.x > 0: 
         playerposition.x -= VEL
     if keys_pressed[py.K_RIGHT] and playerposition.x < 1100: 
@@ -42,35 +40,35 @@ def player_movement(keys_pressed, playerposition, VEL):
 
 
 def object_movement(timestart, gameclock, objectposition, itemvel, randomint1, randomint2):
-    if gameclock > timestart:
+    """This is the function that will control all the objects in the game"""
+    if gameclock > timestart: #The object spawns at a time 
         objectposition.x -= itemvel
         if objectposition.x < -500:
-            objectposition.x = random.randint(randomint1, randomint2)
+            objectposition.x = random.randint(randomint1, randomint2)    # when the object goes past -500 it respawns at a random number, to keep it interesting
             return objectposition
         return objectposition
 
 def collision(playerposition, coneposition, blenderposition, pigposition, ballposition, immunetimer, boosttimer, CHARLIE_HIT, CHARLIE_BOOST):
+    """This function handles the collision of the player and various objects, the bad one post the event Charlie_hit and good ones CHarlie_boost
+    There is a timer in place so you cant get hit for 1 second if you are already hit, by checking for the immunetimer and boosttimer variable"""
     if playerposition.colliderect(coneposition) and immunetimer < 0:
         py.event.post(py.event.Event(CHARLIE_HIT))
-        
-        
     if playerposition.colliderect(blenderposition) and immunetimer < 0:
         py.event.post(py.event.Event(CHARLIE_HIT))
-        
     if playerposition.colliderect(pigposition) and immunetimer < 0:
         py.event.post(py.event.Event(CHARLIE_HIT))
-       
     if playerposition.colliderect(ballposition) and boosttimer < 0:
         py.event.post(py.event.Event(CHARLIE_BOOST))
       
 def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
+    """This runs like a mini version of the game, displaying the player score and breaks with a spacebar to call the main function."""
     game_over_text = END_FONT.render("GAME OVER", 1, WHITE)
     score_text = SCORE_FONT.render("You scored " + str(gameclock//60), 1, WHITE)
     return_text = SCORE_FONT.render("Press Space to return try again!!", 1, WHITE)
     clock = py.time.Clock()
     time = datetime.datetime.now()
     run = True
-    with open("scores.txt", "a") as f:
+    with open("scores.txt", "a") as f: #This writes to a text doc the score and the time
                 f.write("\nThe score by player is " + str(gameclock//60) + " at " + str(time))
     while run:
         clock.tick(30)
@@ -78,7 +76,7 @@ def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
         for event in py.event.get():
             if event.type == py.QUIT:
                 py.quit()
-                exit()
+                exit()  #This prevents a traceback when the program closes
         keys_pressed = py.key.get_pressed()
         if keys_pressed[py.K_SPACE]:
             run = False
@@ -89,6 +87,8 @@ def gameover(gameclock, END_FONT, WHITE, SCORE_FONT, SCREEN, WIDTH, HEIGHT):
         
     
 def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURPLE, run):
+    """This runs like a mini version of the game, but with a purple screen and instructions on how to play.  
+    it breaks out with a space bar."""
     clock = py.time.Clock()
     startscreen = py.Rect(0,0,WIDTH, HEIGHT)
     start_text = END_FONT.render("Charlie's Adventure", 1, WHITE)
@@ -105,7 +105,7 @@ def openingscreen(WIDTH, HEIGHT, END_FONT, WHITE, INSTRUCTION_FONT, SCREEN, PURP
             if event.type == py.QUIT:
                 
                 py.quit()
-                exit()
+                exit()  #This prevents a traceback when the program closes
                  
         keys_pressed = py.key.get_pressed()
         if keys_pressed[py.K_SPACE]:
