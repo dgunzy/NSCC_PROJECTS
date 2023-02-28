@@ -1,0 +1,29 @@
+<html>
+    <!--
+        Note to students: be sure to open the containing folder (Assignment03) in VS Code, then you can Right-Click 
+        on the .html file in the Explorer (top button on the left-hand-side menu) and 'Open with LiveServer'
+        (you will need to install the extension to VS Code via the Extensions icon on the left-hand-side-menu)
+        *** Also be sure that you're running the backend service via 'node backend.js' (see more info there)
+    -->
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="script.js"></script>
+        <script>
+            $(document).ready(function(){   
+                getPledgeReport();
+            });
+        </script>
+    </head>
+    <body class="container">
+
+        <h1>Pledge Report</h1>
+
+        <p><a href="pledge.html">Click here to make a pledge</a></p>
+        
+        <div id="results_container">
+            <!-- output goes here -->
+        </div>
+
+    </body>
+</html>
