@@ -15,9 +15,15 @@ input {
   font-size: 1.25rem;
   margin-left: 5px;
 }
+
 input:focus {
   outline: none;
 }
 #search-icon {
   color: blue;
+}
+
+button {
+  padding: 0px;
+  margin: 0px;
 }

@@ -7,7 +7,7 @@ export const SearchBar = ({ setResults }) => {
   const inputRef2 = useRef(null);
   const [input, setInput] = useState("");
   const [input2, setInput2] = useState("");
-  console.log(input);
+  // console.log(input);
   const fetchData = () => {
     fetch("https://data.novascotia.ca/resource/mdfn-jkdg.json/")
       .then((response) => response.json())
@@ -38,18 +38,21 @@ export const SearchBar = ({ setResults }) => {
     <div className="input-wrapper">
       <FaSearch id="search-icon" />
       <input
+        className="input1"
         placeholder="Enter a Year.."
         ref={inputRef}
         // value={input}
         // onChange={(e) => handleChange(e.target.value)}
       />
+
       <input
+        className="input1"
         placeholder="Enter a Case count"
         ref={inputRef2}
         // value2={input2}
         // onChange={(e) => handleChange(e.target.value2)}
       />
-      <button onClick={handleClick}> Search </button>
+      <button onClick={handleClick}> Search By Clicking Twice! </button>
     </div>
   );
 };

@@ -1,3 +1,18 @@
 .App {
+  min-width: 800px;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5%;
+
+  padding: 2em;
   background-color: rgb(135, 216, 223);
+}
+p {
+  margin: 5px;
+  margin-left: 5%;
+}
+h2 {
+  font-size: 1.7em;
+  margin: auto;
+  width: 40%;
 }
