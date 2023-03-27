@@ -1,58 +1,46 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
-
+const Url = "https://data.novascotia.ca/resource/mdfn-jkdg.json/";
 export const SearchBar = ({ setResults }) => {
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const [input, setInput] = useState("");
   const [input2, setInput2] = useState("");
-  // console.log(input);
-  const fetchData = () => {
-    fetch("https://data.novascotia.ca/resource/mdfn-jkdg.json/")
+
+  useEffect(() => {
+    fetchData();
+  }, [input, input2]);
+
+  async function fetchData() {
+    await fetch("https://data.novascotia.ca/resource/mdfn-jkdg.json/")
       .then((response) => response.json())
       .then((json) => {
         const results = json.filter((entry) => {
           return (
             entry.year.toString() == input && entry.number_of_cases == input2
           );
-          //  && entry.number_of_cases.includes(value2)
         });
 
         setResults(results);
       });
-  };
+  }
 
-  // const handleChange = (value, value2) => {
-  //   setInput(value);
-  //   setInput2(value2);
-  //   fetchData(value, value2);
-  // };
   const handleClick = () => {
     setInput(inputRef.current.value);
     setInput2(inputRef2.current.value);
-
-    fetchData();
   };
   return (
     <div className="input-wrapper">
       <FaSearch id="search-icon" />
-      <input
-        className="input1"
-        placeholder="Enter a Year.."
-        ref={inputRef}
-        // value={input}
-        // onChange={(e) => handleChange(e.target.value)}
-      />
+      <input className="input1" placeholder="Enter a Year.." ref={inputRef} />
 
       <input
         className="input1"
         placeholder="Enter a Case count"
         ref={inputRef2}
-        // value2={input2}
-        // onChange={(e) => handleChange(e.target.value2)}
       />
-      <button onClick={handleClick}> Search By Clicking Twice! </button>
+      <button onClick={handleClick}>Click To Search!</button>
     </div>
   );
 };

@@ -9,8 +9,9 @@ export const SearchResult = ({ result }) => {
         result.number_of_cases +
         " cases in " +
         result.year +
-        ". The count per 100,000 is " +
-        result.rate_per_100_000_population}
+        ". The count per 100,000 population is " +
+        result.rate_per_100_000_population +
+        "."}
     </div>
   );
 };
