@@ -1,0 +1,23 @@
+# ninja log v5
+0	324	7164164147585000	CMakeFiles/AssignmentOne.dir/main.cpp.obj	a56f87354446ba00
+642	774	7170179927129893	AssignmentOne.exe	992e011620744659
+2	87	7168570488347080	build.ninja	5bbd61c550fe5c6e
+3	397	7170179923401736	CMakeFiles/AssignmentOne.dir/casino.cpp.obj	bfab5d781b4b3b54
+14	641	7170179925842135	CMakeFiles/AssignmentOne.dir/games.cpp.obj	c6001baf4b17b371
+7	452	7170179923960695	CMakeFiles/AssignmentOne.dir/persistence.cpp.obj	7af7450b8fa787e2
+10	397	7170179923401736	CMakeFiles/AssignmentOne.dir/gameController.cpp.obj	246726e88e8288a9
+2	377	7170185456959292	CMakeFiles/AssignmentOne.dir/persistence.cpp.obj	7af7450b8fa787e2
+378	471	7170185457869501	AssignmentOne.exe	992e011620744659
+3	365	7170214083025812	CMakeFiles/AssignmentOne.dir/gameController.cpp.obj	246726e88e8288a9
+8	804	7170214087407402	CMakeFiles/AssignmentOne.dir/games.cpp.obj	c6001baf4b17b371
+804	998	7170214089293360	AssignmentOne.exe	992e011620744659
+2	397	7170215381311690	CMakeFiles/AssignmentOne.dir/gameController.cpp.obj	246726e88e8288a9
+398	492	7170215382208403	AssignmentOne.exe	992e011620744659
+3	319	7170216438970316	CMakeFiles/AssignmentOne.dir/gameController.cpp.obj	246726e88e8288a9
+319	410	7170216439838961	AssignmentOne.exe	992e011620744659
+3	405	7170218220284844	CMakeFiles/AssignmentOne.dir/casino.cpp.obj	bfab5d781b4b3b54
+9	420	7170218220438891	CMakeFiles/AssignmentOne.dir/gameController.cpp.obj	246726e88e8288a9
+14	670	7170218222944499	CMakeFiles/AssignmentOne.dir/games.cpp.obj	c6001baf4b17b371
+671	760	7170218223795882	AssignmentOne.exe	992e011620744659
+3	335	7170218685778853	CMakeFiles/AssignmentOne.dir/gameController.cpp.obj	246726e88e8288a9
+335	424	7170218686608821	AssignmentOne.exe	992e011620744659

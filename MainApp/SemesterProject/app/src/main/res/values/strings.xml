@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="weather_prediction">Weather Prediction</string>
+    <string name="predict">I predict...</string>
+    <string name="button">Predict </string>
+    <string-array name="weather_status_array">
+        <item>Cloudy with sunny skies</item>
+        <item>Dark and Damp</item>
+        <item>Raining cats and dogs</item>
+        <item>Hotter then the surface of the sun</item>
+        <item>Snowy and frigid</item>
+        <item>Crisp and refreshing spring air</item>
+    </string-array>
+    <string name="preference_file_key">com.example.semesterproject..PREFERENCE_FILE_KEY</string>
+</resources>
